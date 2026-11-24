@@ -69,8 +69,18 @@ export function createStore({ dbPath, dataPath }) {
       }
     }
   }
+  const listColumns = db.prepare("PRAGMA table_info(lists)").all();
+  if (!listColumns.some((c) => c.name === "owner"))
+    db.exec("ALTER TABLE lists ADD COLUMN owner TEXT");
+  db.exec("CREATE INDEX IF NOT EXISTS lists_owner ON lists(owner, updatedAt)");
+  // owner === undefined means single-user mode: no scoping.
+  const scope = (owner) =>
+    owner === undefined ? ["", []] : [" AND owner IS ?", [owner]];
   return {
     close: () => db.close(),
+    health() {
+      return db.prepare("SELECT COUNT(*) AS n FROM questions").get().n;
+    },
     stats() {
       return {
         total: db.prepare("SELECT COUNT(*) AS n FROM questions").get().n,
@@ -143,18 +153,30 @@ export function createStore({ dbPath, dataPath }) {
         .get(String(id));
       return row ? JSON.parse(row.payload) : null;
     },
-    lists() {
+    lists(owner) {
+      const [clause, args] = scope(owner);
       return db
-        .prepare("SELECT payload FROM lists ORDER BY updatedAt DESC")
-        .all()
+        .prepare(
+          `SELECT payload FROM lists WHERE 1=1${clause} ORDER BY updatedAt DESC`,
+        )
+        .all(...args)
         .map((r) => JSON.parse(r.payload));
     },
-    list(id) {
-      const row = db.prepare("SELECT payload FROM lists WHERE id=?").get(id);
+    countLists(owner) {
+      const [clause, args] = scope(owner);
+      return db
+        .prepare(`SELECT COUNT(*) AS n FROM lists WHERE 1=1${clause}`)
+        .get(...args).n;
+    },
+    list(id, owner) {
+      const [clause, args] = scope(owner);
+      const row = db
+        .prepare(`SELECT payload FROM lists WHERE id=?${clause}`)
+        .get(id, ...args);
       return row ? JSON.parse(row.payload) : null;
     },
-    saveList(input, id) {
-      const previous = id ? this.list(id) : null;
+    saveList(input, id, owner) {
+      const previous = id ? this.list(id, owner) : null;
       if (id && !previous) return null;
       if (!input || typeof input !== "object" || Array.isArray(input))
         throw new Error("Lista inválida.");
@@ -181,15 +203,22 @@ export function createStore({ dbPath, dataPath }) {
           0,
           field === "instructions" ? 5000 : 200,
         );
-      db.prepare("INSERT OR REPLACE INTO lists VALUES (?, ?, ?)").run(
-        list.id,
-        JSON.stringify(list),
-        list.updatedAt,
-      );
+      db.prepare(
+        "INSERT OR REPLACE INTO lists (id, payload, updatedAt, owner) VALUES (?, ?, ?, ?)",
+      ).run(list.id, JSON.stringify(list), list.updatedAt, owner ?? null);
       return list;
     },
-    deleteList(id) {
-      return db.prepare("DELETE FROM lists WHERE id=?").run(id).changes > 0;
+    deleteList(id, owner) {
+      const [clause, args] = scope(owner);
+      return (
+        db.prepare(`DELETE FROM lists WHERE id=?${clause}`).run(id, ...args)
+          .changes > 0
+      );
+    },
+    purgeListsBefore(isoDate) {
+      return db
+        .prepare("DELETE FROM lists WHERE owner IS NOT NULL AND updatedAt < ?")
+        .run(isoDate).changes;
     },
   };
 }
