@@ -1,0 +1,46 @@
+{
+  "name": "lista-livre",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"node --watch server/index.mjs\" \"vite --host 127.0.0.1\"",
+    "build": "vite build",
+    "start": "node server/index.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "import": "node scripts/import-data.mjs",
+    "test:browser": "npm run build && node tests/browser.mjs",
+    "format": "prettier --write src server scripts tests *.js *.json *.md docs .github",
+    "format:check": "prettier --check src server scripts tests *.js *.json *.md docs .github"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "express": "^5.1.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "concurrently": "^9.1.2",
+    "prettier": "^3.9.8",
+    "vite": "^7.0.0"
+  },
+  "description": "Editor open source de listas de exercícios com busca multidisciplinar e questões do ENEM.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gus-aguiar/lista-livre.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gus-aguiar/lista-livre/issues"
+  },
+  "homepage": "https://github.com/gus-aguiar/lista-livre#readme"
+}

@@ -1,0 +1,14 @@
+node_modules/
+dist/
+data/*.sqlite*
+.env
+playwright-report/
+test-results/
+.env.*
+!.env.example
+.DS_Store
+*.log
+# Imported third-party content stays local; fetch with npm run import.
+data/questions.json
+data/manifest.json
+data/*.tmp
