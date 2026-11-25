@@ -1,0 +1,30 @@
+# Production: runs behind the shared reverse proxy (Caddy) on the external
+# `edge` network. No ports are published; the proxy reaches lista-livre:3000.
+services:
+  lista-livre:
+    build: .
+    image: lista-livre:latest
+    container_name: lista-livre
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      DATA_DIR: /data
+    volumes:
+      - lista-livre-data:/data
+    networks:
+      - edge
+    mem_limit: 256m
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  lista-livre-data:
+
+networks:
+  edge:
+    external: true

@@ -1,0 +1,15 @@
+.git
+.github
+node_modules
+dist
+docs
+tests
+playwright-report
+test-results
+*.log
+.env
+.env.*
+data/*.sqlite*
+data/*.tmp
+compose*.yaml
+Dockerfile

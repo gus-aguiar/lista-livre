@@ -1,0 +1,7 @@
+# Local testing only:
+#   docker network create edge   # once, if it does not exist
+#   docker compose -f compose.yaml -f compose.local.yaml up --build
+services:
+  lista-livre:
+    ports:
+      - "127.0.0.1:3000:3000"
