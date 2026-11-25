@@ -78,6 +78,21 @@ test("health falha (503) com acervo vazio", async (t) => {
   assert.equal((await res.json()).status, "empty");
 });
 
+test("CORS aberto só em GET /api/health", async (t) => {
+  const { visitor } = await start(t);
+  const get = visitor();
+  const health = await get("/api/health");
+  assert.equal(health.headers.get("access-control-allow-origin"), "*");
+  for (const path of ["/api/stats", "/api/questions", "/api/lists"]) {
+    const res = await get(path);
+    assert.equal(res.headers.get("access-control-allow-origin"), null, path);
+  }
+  const empty = await start(t, { questions: false });
+  const down = await empty.visitor()("/api/health");
+  assert.equal(down.status, 503);
+  assert.equal(down.headers.get("access-control-allow-origin"), "*");
+});
+
 test("modo demo isola listas por visitante", async (t) => {
   const { visitor } = await start(t, { demo: demo() });
   const alice = visitor();
