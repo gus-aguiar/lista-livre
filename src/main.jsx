@@ -159,6 +159,12 @@ function App() {
     [busy, setBusy] = useState(false),
     [over, setOver] = useState(false);
   useEffect(() => {
+    if (!preview) return;
+    const html = document.documentElement;
+    html.classList.add("preview-open");
+    return () => html.classList.remove("preview-open");
+  }, [preview]);
+  useEffect(() => {
     api("/stats")
       .then(setStats)
       .catch((e) => setError(e.message));
@@ -291,7 +297,7 @@ function App() {
                 updatedAt: value.updatedAt,
               },
         );
-      setNotice("Lista salva neste computador.");
+      setNotice("Lista salva no servidor.");
       return true;
     } catch (e) {
       setError(e.message);
@@ -386,6 +392,8 @@ function App() {
           <div className="search-wrap">
             <Search size={21} />
             <input
+              id="search"
+              name="q"
               aria-label="Buscar questões"
               value={query}
               onChange={(e) => {
@@ -399,6 +407,8 @@ function App() {
           <div className="filters">
             <SlidersHorizontal size={17} />
             <select
+              id="filter-discipline"
+              name="discipline"
               aria-label="Filtrar por área"
               value={discipline}
               onChange={(e) => {
@@ -414,6 +424,8 @@ function App() {
               ))}
             </select>
             <select
+              id="filter-year"
+              name="year"
               aria-label="Filtrar por ano"
               value={year}
               onChange={(e) => {
@@ -591,6 +603,7 @@ function App() {
           <label className="field-label">
             TÍTULO DA LISTA
             <input
+              name="title"
               value={list.title}
               onChange={(e) => change("title", e.target.value)}
               placeholder="Dê um nome à lista"
@@ -798,6 +811,7 @@ function App() {
                   <label className="form-label" key={key}>
                     {label}
                     <input
+                      name={key}
                       value={list[key] || ""}
                       onChange={(e) => change(key, e.target.value)}
                     />
@@ -806,6 +820,7 @@ function App() {
                 <label className="form-label">
                   Instruções
                   <textarea
+                    name="instructions"
                     value={list.instructions || ""}
                     onChange={(e) => change("instructions", e.target.value)}
                   />
@@ -817,7 +832,11 @@ function App() {
             ) : modal === "lists" ? (
               <>
                 <h2>Minhas listas</h2>
-                <p>Salvas no banco de dados deste computador.</p>
+                <p>
+                  {stats.demo
+                    ? "Salvas no servidor e ligadas a este navegador: outro navegador ou dispositivo não vê estas listas."
+                    : "Salvas no servidor desta instalação da Lista Livre."}
+                </p>
                 {!saved.length && (
                   <p className="empty-results">
                     Você ainda não salvou nenhuma lista.
@@ -886,6 +905,7 @@ function App() {
             <label>
               <input
                 type="checkbox"
+                name="answers"
                 checked={answers}
                 onChange={(e) => setAnswers(e.target.checked)}
               />{" "}
@@ -906,9 +926,10 @@ function App() {
                 {list.teacher && <span>Professor(a): {list.teacher}</span>}
                 {list.className && <span>Turma: {list.className}</span>}
               </div>
-              <p>
-                Nome: ___________________________________________________ Data:
-                ____/____/______
+              <p className="print-student">
+                <span>Nome:</span>
+                <span className="print-blank" />
+                <span>Data: ____/____/______</span>
               </p>
               <p className="instructions">{list.instructions}</p>
             </header>

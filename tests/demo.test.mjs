@@ -78,6 +78,16 @@ test("health falha (503) com acervo vazio", async (t) => {
   assert.equal((await res.json()).status, "empty");
 });
 
+test("stats informa se a instância está em modo demo", async (t) => {
+  const local = await start(t);
+  assert.equal(
+    (await (await local.visitor()("/api/stats")).json()).demo,
+    false,
+  );
+  const pub = await start(t, { demo: demo() });
+  assert.equal((await (await pub.visitor()("/api/stats")).json()).demo, true);
+});
+
 test("CORS aberto só em GET /api/health", async (t) => {
   const { visitor } = await start(t);
   const get = visitor();
