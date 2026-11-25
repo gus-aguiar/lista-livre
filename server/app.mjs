@@ -29,6 +29,9 @@ export function createApp(options = {}) {
     store.close();
   };
   app.get("/api/health", (_req, res) => {
+    // Public status checks (e.g. the portfolio site) read this from another origin.
+    // Only this route opens CORS; everything else stays same-origin.
+    res.set("Access-Control-Allow-Origin", "*");
     try {
       const questions = store.health();
       res.status(questions > 0 ? 200 : 503).json({
