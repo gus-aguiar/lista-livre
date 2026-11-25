@@ -938,6 +938,23 @@ h1 span {
 .preview-toolbar input {
   width: auto;
 }
+/* The preview is a fixed overlay with its own scroll; keep the page behind it still. */
+.preview-open,
+.preview-open body {
+  overflow: hidden;
+}
+.print-student {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 4px 8px;
+}
+.print-blank {
+  flex: 1 1 12em;
+  min-width: 8em;
+  border-bottom: 1px solid currentColor;
+  margin-bottom: 0.3em;
+}
 .print-sheet {
   width: 210mm;
   max-width: calc(100% - 30px);
@@ -1653,6 +1670,10 @@ body {
   }
 }
 @media print {
+  .preview-open,
+  .preview-open body {
+    overflow: visible;
+  }
   @page {
     size: A4;
     margin: 18mm;

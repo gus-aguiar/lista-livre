@@ -45,7 +45,9 @@ export function createApp(options = {}) {
       res.status(503).json({ status: "error", version: pkg.version });
     }
   });
-  app.get("/api/stats", (_req, res) => res.json(store.stats()));
+  app.get("/api/stats", (_req, res) =>
+    res.json({ ...store.stats(), demo: Boolean(demo) }),
+  );
   app.get("/api/questions", (req, res) => res.json(store.questions(req.query)));
   app.get("/api/questions/:id", (req, res) => {
     const item = store.question(req.params.id);
