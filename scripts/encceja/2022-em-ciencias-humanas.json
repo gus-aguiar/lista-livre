@@ -1,0 +1,155 @@
+{
+  "idPrefix": "encceja-2022-em-ciencias-humanas",
+  "edicao": 2022,
+  "aplicacao": "regular-nacional",
+  "nivel": "ensino-medio",
+  "discipline": "ciencias-humanas",
+  "caderno": {
+    "nome": "Ensino Médio, Prova IV - Ciências Humanas e suas Tecnologias",
+    "url": "https://download.inep.gov.br/encceja/provas_e_gabaritos/2022_PV_EM_ciencias_humanas.pdf",
+    "sha256": "c385eb49eca08a6c482df9b40866eb500ef71caf36dcdaf26c05b0f1997e5446"
+  },
+  "gabarito": {
+    "url": "https://download.inep.gov.br/encceja/provas_e_gabaritos/2022_GB_EM_ciencias_humanas.pdf",
+    "sha256": "0e267f5ba3b26affc156639aa90bd057f6c0649e88988c632369af81cb19b242"
+  },
+  "expectedNumbers": [31, 60],
+  "crop": {
+    "top": 40,
+    "height": 715,
+    "width": 567,
+    "columnSplit": 283
+  },
+  "layout": {
+    "2": "largura-total",
+    "3": "duas-colunas",
+    "4": "largura-total",
+    "5": "largura-total",
+    "6": "duas-colunas",
+    "7": "duas-colunas",
+    "8": "largura-total",
+    "9": "largura-total",
+    "10": "largura-total",
+    "11": "largura-total",
+    "12": "largura-total",
+    "13": "largura-total",
+    "14": "largura-total",
+    "15": "largura-total"
+  },
+  "questions": {
+    "31": {
+      "figure": true,
+      "dropLineHashes": [
+        "a8d19728cf01a8db",
+        "6dbd1e736bf5aef6",
+        "5feceb66ffc86f38",
+        "c9c445c00ba55348",
+        "f08c5484ddec66f6",
+        "510f60feed6682c1",
+        "9e0eb54d45f5521e",
+        "773e7042bd9df8ba"
+      ],
+      "reviewedSha256": "92525fb4051ea2927cc61dc407c57a3a074175ea047b6a623f04cba411a593c1"
+    },
+    "32": {
+      "reviewedSha256": "56f59f9a80f3115c76e8ecf5e5884faba011924a0041574ea4cdab0b53a6724e"
+    },
+    "33": {
+      "reviewedSha256": "a8b79919426c016d134d303cd488ef1848d8f02c8dfdc9c17c960568e6a7a443"
+    },
+    "34": {
+      "reviewedSha256": "7fcf3d6a4c7eae6eec42aaf99d5be4e45bfcc16c099c3abf5d8cbd9dad68c37a"
+    },
+    "35": {
+      "reviewedSha256": "611ecce654a2a95864a23708d35b84431cbe707513eeaddf34695c92384a7adc"
+    },
+    "36": {
+      "figure": true,
+      "reviewedSha256": "38c6c71b26400564b6fb21d581dc49a13f9b19bb938ee5fab90252ed9a136ec4"
+    },
+    "37": {
+      "reviewedSha256": "baa438eeea5c7da9e0d56aeb22109f326c540c7ca9a84dc8fb8fcbe5a2a46158"
+    },
+    "38": {
+      "reviewedSha256": "c9262996b87512b50343f7655f6f374828ccae030b99574fa0af229cff6d2b68"
+    },
+    "39": {
+      "reviewedSha256": "a4bbd826952aa8554f44bfcc454a99968045f809c7fadb04d4d06e287dc41968"
+    },
+    "40": {
+      "reviewedSha256": "668046afbad2ade1d5d1856019899c0cf0ca2748e501ef52cc61f6a7b2d07aa2"
+    },
+    "41": {
+      "reviewedSha256": "4e4fad7109265fc12a2c6d08973c1c771bd50fc23fb2e0fac244c71acd0c352b"
+    },
+    "42": {
+      "reviewedSha256": "78b697832f238b1bfe6e07e6d97bb064c3b9896b67c016173e998d4aada725ab"
+    },
+    "43": {
+      "reviewedSha256": "571f6e379d8188c086237c7238bc036bf4e5dfa286ff751fb9a6d3cfc2719e80"
+    },
+    "44": {
+      "reviewedSha256": "397eb4956311eff4cf30fe8c7570cb9991abd5c3ade59efaa92c072b99a82e82",
+      "titleLines": 2
+    },
+    "45": {
+      "reviewedSha256": "6c58238b5232c4532f5e52fb16f9fa451fba70a7623b368c767a2c579ba8d1c2"
+    },
+    "46": {
+      "reviewedSha256": "fd6f69c12de17a017765dd5ab3f732c582801f72318a5253a363ab65886e0bff"
+    },
+    "47": {
+      "reviewedSha256": "d616ecaf538614ff57e09d75c32f46e13c20f91f4d019e37d04fff660a04cab2"
+    },
+    "48": {
+      "reviewedSha256": "1fabbb0e023be010d3d77bf88583722751112bb9547af313604e7fd1aed14667"
+    },
+    "49": {
+      "reviewedSha256": "9048bcc649d2db5f9d6f65b8943d1e3fecd1ac86109490c72fc27b39bf56a9e6",
+      "titleLines": 1
+    },
+    "50": {
+      "figure": true,
+      "reviewedSha256": "9a20d455a0843f671cf485232b9e7832a687c3c63162e41def5c20600db9ba28",
+      "titleLines": 1
+    },
+    "51": {
+      "verse": true,
+      "reviewedSha256": "112f9fc80dde5d1ca3d21a59a39afbdf2c4322d5ba2157407a533a337e82fc8a"
+    },
+    "52": {
+      "figure": true,
+      "reviewedSha256": "5832ad31a6c03a42772c1ea92254013db602233aad84b67cbd99387b90c4c269"
+    },
+    "53": {
+      "verse": true,
+      "reviewedSha256": "cdadef4624ac014d316c2d3de1ea5a069687903d122d9346350968903651c07f",
+      "titleLines": 1
+    },
+    "54": {
+      "figure": true,
+      "reviewedSha256": "fd0c489805deef00a318cbe60d158ca518df551e2e530c63fadc8e506248a5db",
+      "titleLines": 1
+    },
+    "55": {
+      "reviewedSha256": "907fb51b8bf4ef03c69108145f5bdcfb9374da08e5666d191fadccf636fdb1c6"
+    },
+    "56": {
+      "reviewedSha256": "e36ac32211fd8d36299e85037ffd1f9c37942a5c1d0f87e263b61dcfa2c31713"
+    },
+    "57": {
+      "reviewedSha256": "2a1f06c7256a4784f5175f8da0be5f0c2448f3ebba9c46363aa18606406d5a20",
+      "titleLines": 1
+    },
+    "58": {
+      "reviewedSha256": "aef5c82e7c021c42f9f956dc667e6b0770a0ba045bb6495b4dd0b949b19331a3"
+    },
+    "59": {
+      "verse": true,
+      "reviewedSha256": "e758fe08dd68fe6b4feb76a01ffcedcfa09582e8925bc3c0517e45803200dd8b"
+    },
+    "60": {
+      "reviewedSha256": "f7c9b7654f73ebc41abc9544e8c93156e60717c9dd24754f1d3cb5f8a9656535"
+    }
+  }
+}

@@ -47,6 +47,33 @@ Isto é análise de risco feita por engenharia, não parecer jurídico.
 
 Fazer uma prova de conceito com o **ENCCEJA** (ensino médio, uma área, uma edição recente): baixar o caderno e o gabarito oficiais, extrair o texto, revisar à mão contra o PDF e marcar `status: "revisado"`. Em paralelo, um importador de `ITENS_PROVA` dos microdados do ENEM confere o gabarito das questões que já estão no acervo. As duas coisas ficam para um PR próprio, com o OK do autor.
 
+## Prova de conceito: ENCCEJA 2022, Ciências Humanas (ensino médio)
+
+Status: importado só localmente em `data/sources/`, que fica fora do Git. **Não é carregado pelo app nem publicado na demo** até a decisão sobre o pedido ao INEP pelo Fala.BR.
+
+- **Edição:** 2022 é a mais recente com cadernos publicados; de 2023 a 2025 o INEP só publicou gabaritos. A prova de conceito cobre um caderno: Ensino Médio, Prova IV, Ciências Humanas e suas Tecnologias, questões 31 a 60. Os outros cadernos da edição usam o mesmo importador, cada um com a sua configuração revisada.
+- **Como rodar:** `npm run import:encceja`. Requer `pdftotext` (poppler-utils).
+- **O que fica no Git:** `scripts/import-encceja.mjs` e `scripts/encceja/2022-em-ciencias-humanas.json`. A configuração **não contém texto de questão**, só:
+  - o SHA-256 do caderno e do gabarito oficiais;
+  - o layout de cada página (uma ou duas colunas);
+  - as marcações de figura, verso e título;
+  - o hash das linhas internas de figura que são removidas;
+  - o `reviewedSha256` de cada questão revisada.
+
+**Fidelidade (CC BY-ND, texto literal)** é garantida em quatro camadas:
+
+1. **Tokens.** Para cada questão, a sequência de palavras da transcrição (parágrafos e alternativas) é **idêntica** à do PDF recortado por coluna. Só mudam espaços e quebras de linha. Qualquer palavra trocada, acrescentada ou omitida interrompe a importação.
+2. **Conferência independente.** Cada parágrafo e cada alternativa também precisam existir, com os mesmos caracteres na mesma ordem, na extração da página inteira em modo `-raw`. Isso pega recorte errado de coluna.
+3. **Revisão manual.** A estrutura foi conferida contra as páginas renderizadas: título, texto, crédito, comando e alternativas. A página 7, de duas colunas, foi conferida palavra por palavra. O hash da revisão fica em `reviewedSha256`: se o INEP trocar o PDF (o SHA-256 muda) ou a extração mudar, a importação para e pede nova revisão.
+4. **Gabarito.** As 30 respostas vêm do PDF oficial do gabarito e foram conferidas.
+
+**Resultado:** 30 questões, 25 com `status: "revisado"`. As 5 com mapa ou charge (31, 36, 50, 52 e 54) ficam como `requer-figura`, com aviso e link para a página do PDF, porque a figura não é reproduzida. Cada questão leva `rights.basis: "licenca:CC-BY-ND-3.0"`, a atribuição "INEP. ENCCEJA 2022, …, questão N" com o link do PDF e os créditos de terceiros em `thirdPartyExcerpts`. Os testes (`tests/encceja.test.mjs`) usam texto sintético.
+
+**Limites conhecidos:**
+
+- Itálico e negrito do caderno não são preservados. Isso muda a apresentação, não o texto.
+- O certificado TLS de `download.inep.gov.br` vem sem a cadeia intermediária. O download não verifica a cadeia e depende do SHA-256 fixado na configuração.
+
 ## Fontes primárias (acessadas em 2026-11-26)
 
 - INEP, provas e gabaritos: [ENEM](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos), [ENCCEJA](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/encceja/provas-e-gabaritos), [ENADE](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enade/provas-e-gabaritos), [Revalida](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/revalida/provas-e-gabaritos). As contagens de arquivos foram feitas sobre as páginas por ano (`.../provas-e-gabaritos/<ano>`), considerando links únicos para `download.inep.gov.br`.

@@ -11,6 +11,7 @@
     "test": "node --test tests/*.test.mjs",
     "import": "node scripts/import-data.mjs",
     "import:ufrgs": "node scripts/import-ufrgs-gabarito.mjs",
+    "import:encceja": "node scripts/import-encceja.mjs scripts/encceja/2022-em-ciencias-humanas.json",
     "test:browser": "npm run build && node tests/browser.mjs",
     "format": "prettier --write src server scripts tests *.js *.json *.md docs .github",
     "format:check": "prettier --check src server scripts tests *.js *.json *.md docs .github"
