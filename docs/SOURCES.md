@@ -32,3 +32,7 @@ As tags de área e idioma vêm dos metadados. As demais são **inferidas por reg
 O repositório da API declara GNU GPL-2.0; sua documentação orienta respeitar essa licença e o site declara ter obtido o material de fontes abertas. Este projeto não copia a implementação da API: consome seus dados públicos e mantém a procedência. A declaração do provedor não é uma revisão independente dos direitos de textos, obras e imagens citados dentro das questões. Conservar atribuições originais e revisar as condições dos materiais é necessário antes de uma distribuição comercial ampla. Acesso público não é, por si só, uma licença universal de redistribuição de todo conteúdo incorporado.
 
 Para ampliar o acervo, o portal do INEP é a fonte primária. Microdados estatísticos de candidatos não são um substituto para um banco de enunciados; o processo de ampliar provas em PDF requer extração e revisão editorial.
+
+## Vestibulares e concursos
+
+O levantamento de fontes, direitos e o modelo de procedência estão em [`FONTES-VESTIBULARES-CONCURSOS.md`](FONTES-VESTIBULARES-CONCURSOS.md). Por enquanto só existe um índice de gabarito da UFRGS, sem enunciados, gerado por `npm run import:ufrgs`, que fica fora do Git em `data/sources/`.

@@ -12,3 +12,4 @@ test-results/
 data/questions.json
 data/manifest.json
 data/*.tmp
+data/sources/

@@ -9,6 +9,7 @@
     "start": "node server/index.mjs",
     "test": "node --test tests/*.test.mjs",
     "import": "node scripts/import-data.mjs",
+    "import:ufrgs": "node scripts/import-ufrgs-gabarito.mjs",
     "test:browser": "npm run build && node tests/browser.mjs",
     "format": "prettier --write src server scripts tests *.js *.json *.md docs .github",
     "format:check": "prettier --check src server scripts tests *.js *.json *.md docs .github"
