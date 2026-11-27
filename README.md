@@ -87,7 +87,7 @@ As hashtags temáticas são sugestões automáticas por palavras-chave, não cla
 
 Este MVP é para uso local, **sem autenticação ou separação de contas**. Por padrão o servidor escuta apenas em `127.0.0.1` (configurável por `HOST`). Para uma demonstração pública em container, com listas isoladas por visitante (`DEMO_MODE=1`), veja a seção [Deploy do README em inglês](README.en.md#deploy). Publicar o código no GitHub não torna as suas listas públicas nem hospeda o aplicativo na internet.
 
-Depois de `npm run import`, reinicie o servidor para reindexar o acervo sem apagar listas. Importar anos específicos **substitui** o snapshot: preserve os anos usados nas listas existentes. Faça backup de `data/` com o servidor parado.
+Depois de `npm run import`, reinicie o servidor para reindexar o acervo sem apagar listas. Importar anos específicos **substitui** o snapshot: preserve os anos usados nas listas existentes. Para backup, `npm run backup` grava em `data/backups/` uma cópia consistente do `app.sqlite` com o servidor rodando, confere a integridade e mantém as 7 mais recentes. Restaurar: pare o servidor, copie o backup escolhido sobre `data/app.sqlite`, apague `app.sqlite-wal` e `app.sqlite-shm` e inicie de novo.
 
 Para transformar em serviço multiusuário, são necessários autenticação, autorização por lista, backup e uma estratégia de armazenamento das imagens.
 
