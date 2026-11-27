@@ -13,3 +13,4 @@ data/questions.json
 data/manifest.json
 data/*.tmp
 data/sources/
+data/backups/

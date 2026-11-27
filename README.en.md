@@ -69,7 +69,16 @@ The repository ships a container setup for a VPS behind a shared reverse proxy (
 | `DEMO_RATE_LIMIT` / `DEMO_RATE_WINDOW_SECONDS` | `30` / `60`                                   | Write requests per IP per window                  |
 | `DEMO_TTL_HOURS`                               | `72`                                          | Demo lists idle longer than this are deleted      |
 
-In demo mode each visitor receives a signed, HttpOnly cookie with a random id; `/api/lists` only returns and changes that visitor's lists. `GET /api/health` returns `{"status":"ok","questions":<count>,"version":...}` (HTTP 503 if the database is unreachable or empty) and drives the container `HEALTHCHECK`. Back up the `lista-livre-data` volume (SQLite in WAL mode; stop the container or use `sqlite3 .backup`).
+In demo mode each visitor receives a signed, HttpOnly cookie with a random id; `/api/lists` only returns and changes that visitor's lists. `GET /api/health` returns `{"status":"ok","questions":<count>,"version":...}` (HTTP 503 if the database is unreachable or empty) and drives the container `HEALTHCHECK`. ### Backup and restore
+
+`npm run backup` (in the container: `docker compose exec lista-livre node server/backup.mjs`) writes a consistent snapshot of `app.sqlite` while the server keeps running (`VACUUM INTO`, WAL included), checks it with `PRAGMA integrity_check`, prints the question and list counts, and keeps the newest `BACKUP_KEEP` files (default 7) in `$DATA_DIR/backups` (`BACKUP_DIR` overrides it). The snapshot lives in the same volume, so copy it off the host too, e.g. a daily cron:
+
+```sh
+docker compose exec -T lista-livre node server/backup.mjs \
+  && docker compose cp lista-livre:/data/backups ./backups-lista-livre
+```
+
+To restore: `docker compose stop`, copy the chosen `app-<timestamp>.sqlite` over `/data/app.sqlite`, delete `/data/app.sqlite-wal` and `/data/app.sqlite-shm` if they exist, then `docker compose start`. A backup is a complete database, so open it with `DATA_DIR` pointing at a scratch copy to test a restore without touching production.
 
 ## License
 
