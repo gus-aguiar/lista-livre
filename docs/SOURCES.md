@@ -35,4 +35,4 @@ Para ampliar o acervo, o portal do INEP é a fonte primária. Microdados estatí
 
 ## Vestibulares e concursos
 
-O levantamento de fontes, direitos e o modelo de procedência estão em [`FONTES-VESTIBULARES-CONCURSOS.md`](FONTES-VESTIBULARES-CONCURSOS.md). Por enquanto só existe um índice de gabarito da UFRGS, sem enunciados, gerado por `npm run import:ufrgs`, que fica fora do Git em `data/sources/`.
+O levantamento de fontes, direitos e o modelo de procedência estão em [`FONTES-VESTIBULARES-CONCURSOS.md`](FONTES-VESTIBULARES-CONCURSOS.md). As fontes públicas do governo (INEP, OBMEP, MEC RED e dados.gov.br) estão em [`FONTES-PUBLICAS-GOVERNO.md`](FONTES-PUBLICAS-GOVERNO.md). Por enquanto só existe um índice de gabarito da UFRGS, sem enunciados, gerado por `npm run import:ufrgs`, que fica fora do Git em `data/sources/`.
